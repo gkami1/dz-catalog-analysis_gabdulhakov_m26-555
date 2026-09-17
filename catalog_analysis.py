@@ -3,10 +3,11 @@ import math
 
 def main():
     print("Hello from dz-catalog-analysis-gabdulhakov-m26-555!")
-
+    
 
 if __name__ == "__main__":
     main()
+    
 
 
 movies = [
@@ -56,3 +57,25 @@ def duration_in_hours(minutes):
     hours = minutes // 60
     leftover = minutes % 60
     return f"{hours}ч {leftover}м"
+
+
+def rating_tier(rating):
+    """Возвращает категорию оценки: шедевр / хорошо / средне / слабо."""
+    if rating >= 7:
+        tier = "шедевр" if rating >= 9 else "хорошо"
+    elif rating >= 5:
+        tier = "средне"
+    else:
+        tier = "слабо"
+    return tier
+
+
+def decade_label(year):
+    """Возвращает метку эпохи по году выпуска фильма."""
+    match year:
+        case _ if year > 2020:
+            return "новые"
+        case _ if year >= 2015:
+            return "недавние"
+        case _:
+            return "старые"
