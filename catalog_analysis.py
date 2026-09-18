@@ -1,15 +1,5 @@
 import math
 
-
-def main():
-    print("Hello from dz-catalog-analysis-gabdulhakov-m26-555!")
-    
-
-if __name__ == "__main__":
-    main()
-    
-
-
 movies = [
     {"title": "The Dune Chronicles", "year": 2021, "genres": {"sci-fi", "drama"},
      "rating": 8.6, "duration_min": 155,
@@ -211,3 +201,34 @@ def iter_high_rated(movies, min_rating=8.0):
 def total_duration_above_7(movies):
     """Суммарная длительность фильмов с рейтингом выше 7 (в минутах)."""
     return sum(m["duration_min"] for m in movies if m["rating"] > 7)
+
+
+def build_report(movies):
+    """Печатает единый отчёт по каталогу."""
+    avg_rating = average_rating(movies)
+    _, _, avg_age = catalog_age_stats(movies)
+
+    print("ОТЧЁТ ПО КАТАЛОГУ")
+    print(f"Средний рейтинг: {avg_rating}")
+    print(f"Средний возраст фильмов: {avg_age} лет")
+    print()
+
+    print("Топ-3 фильма:")
+    top = sorted(movies, key=lambda movie: movie["rating"], reverse=True)[:3]
+    for movie in top:
+        print(f"  {format_report_line(movie)}")
+    print()
+
+    print("Фильмов по жанрам:")
+    counts = count_by_genre(movies)
+    sorted_counts = sorted(counts.items(), key=lambda item: (-item[1], item[0]))
+    for genre, count in sorted_counts:
+        print(f"  {genre} — {count}")
+    print()
+
+    genres_line = ", ".join(sorted(all_genres(movies)))
+    print(f"Все жанры каталога: {genres_line}")
+
+
+if __name__ == "__main__":
+    build_report(movies)
