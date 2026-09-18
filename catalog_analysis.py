@@ -175,4 +175,27 @@ def above_average_ratings(movies):
     }
 
 
+def all_genres(movies):
+    """Возвращает множество всех уникальных жанров каталога."""
+    genres = set()
+    for movie in movies:
+        genres |= movie["genres"]
+    return genres
 
+
+def common_actors(movie1, movie2):
+    """Возвращает множество актёров, снимавшихся в обоих фильмах."""
+    return set(movie1["actors"]) & set(movie2["actors"])
+
+
+def genres_only_in_one(movies_a, movies_b):
+    """Жанры, которые есть в movies_a, но отсутствуют в movies_b."""
+    genres_a = set()
+    for movie in movies_a:
+        genres_a |= movie["genres"]
+
+    genres_b = set()
+    for movie in movies_b:
+        genres_b |= movie["genres"]
+
+    return genres_a - genres_b
