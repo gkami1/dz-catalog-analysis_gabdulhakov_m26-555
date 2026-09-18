@@ -108,3 +108,26 @@ def find_first_masterpiece(movies):
         index += 1
     else:
         print("Шедевров не найдено")
+
+
+def normalize_title(title):
+    """Приводит строку к Title Case вручную, без str.title()."""
+    words = title.split()
+    normalized = [word[0].upper() + word[1:] for word in words]
+    return " ".join(normalized)
+
+
+def make_slug(title):
+    """Превращает название в слаг вида the-quiet-algorithm."""
+    return title.lower().replace(" ", "-")
+
+
+def format_report_line(movie):
+    """Собирает единую строку с описанием фильма."""
+    title = normalize_title(movie["title"])
+    genres = ", ".join(sorted(movie["genres"]))
+    duration = duration_in_hours(movie["duration_min"])
+    return (
+        f'"{title}" ({movie["year"]}) — '
+        f'{movie["rating"]}/10, {duration}, жанры: {genres}'
+    )
